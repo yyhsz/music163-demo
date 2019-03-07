@@ -4,8 +4,9 @@
 a{text-decoration: none;color: inherit;}
 ul{list-style: none;}
 
-.container{
+.wrapper{
     display: flex;
+    justify-content: flex-start;
 }
 
 
@@ -18,11 +19,7 @@ aside{
     justify-content: space-between;
     border:1px solid rgb(229, 98, 74);
 }
-aside .newSong{
-    padding: 16px;
-    text-align: center;
-    border-bottom: 1px solid rgb(160, 159, 159)
-}
+
 aside li{
     padding: 6px 10px;
     border-bottom: 1px dashed #ddd
@@ -30,7 +27,9 @@ aside li{
 aside li.active{
     background: rgb(240, 221, 221);
 }
-
+.newSong{
+    cursor: pointer;
+}
 #uploadArea {
     padding: 40px;
     border: 3px dashed rgb(252, 184, 184);
@@ -41,4 +40,19 @@ aside li.active{
     width: 400px;
     background: rgb(253, 243, 243);
     cursor: pointer;
+}
+
+/*主要部分*/
+.wrapper main{
+    border:1px solid rgb(229, 98, 74);
+    width: 100%;
+}
+main h1{
+    padding: 30px;
+    border-bottom: 1px dashed rgb(185, 183, 183);
+    margin:0 30px;
+}
+.form{
+    padding: 30px;
+
 }

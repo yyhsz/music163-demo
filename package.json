@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "leancloud-storage": "^3.12.0",
     "plupload": "^2.3.6",
     "qiniu": "^7.2.1",
-    "qiniu-js": "^1.0.22"
+    "qiniu-js": "^1.0.22",
+    "tether": "^1.4.5"
   }
 }
