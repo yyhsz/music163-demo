@@ -6,7 +6,7 @@
         <form class="form">
             <div class="form-group">
                 <label for="email">歌曲名:</label>
-                <input type="text" name='songName' class="form-control"  value='__key__'>
+                <input type="text" name='songName' class="form-control"  value='__songName__'>
             </div>
             <div class="form-group">
                 <label for="pwd">歌手:</label>
@@ -14,13 +14,13 @@
             </div>
             <div class="form-group">
                 <label for="pwd">外链:</label>
-                <input type="text" name='url' class="form-control" id="pwd"  value='__link__'>
+                <input type="text" name='url' class="form-control" id="pwd"  value='__url__'>
             </div>
             <button type="submit" class="btn btn-primary">上传</button>
         </form>
         `,
         render(data = {}) {
-            let placeholders = ['key', 'link', 'singer']
+            let placeholders = ['songName', 'url', 'singer']
             let html = this.template
             placeholders.map((value) => {
                 html = html.replace(`__${value}__`, data[value] || '')
@@ -58,7 +58,12 @@
             this.view.render(this.model.data)
             this.bindEvents()
             eventHub.on('upload', (data) => {
+                this.view.render()
                 this.view.render(data)
+            })
+            eventHub.on('select',(songImformation)=>{
+                console.log(songImformation)
+                this.view.render(songImformation)
             })
         },
         bindEvents() {
@@ -74,7 +79,6 @@
                         this.model.updata(newSong)
                         this.view.render()
                         eventHub.emit('create',this.model.data)
-                        console.log('cc')
                     }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
 
 
