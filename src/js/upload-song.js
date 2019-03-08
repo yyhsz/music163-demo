@@ -54,8 +54,8 @@
                         var singer = response.key.split('.')[0].split(` - `)[0]
                         var songName = response.key.split('.')[0].split(` - `)[1]
                         eventHub.emit('upload',{
-                            link:sourceLink,
-                            key:songName,
+                            url:sourceLink,
+                            songName:songName,
                             singer:singer
                         })
                         // 获取上传成功后的文件的Url

@@ -58,12 +58,11 @@
             this.view.render(this.model.data)
             this.bindEvents()
             eventHub.on('upload', (data) => {
-                this.view.render()
                 this.view.render(data)
             })
-            eventHub.on('select',(songImformation)=>{
-                console.log(songImformation)
-                this.view.render(songImformation)
+            eventHub.on('select',(data)=>{
+                this.view.render()
+                this.view.render(data)
             })
         },
         bindEvents() {

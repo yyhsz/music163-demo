@@ -20,17 +20,22 @@
         }
     }
     let model = {
-        data: {}, //{songs:[{songName:'xxx',singer:'xxx',id:'xxx'....},{},{}]}
+        data: {songs:[]}, //{songs:[{songName:'xxx',singer:'xxx',id:'xxx'....},{},{}]}
         find() {
             var query = new AV.Query('Song')
             return query.find().then((data) => {
-                let songs
                 songs = data.map((value) => {
                     return value.attributes
                 })
                 this.data.songs = songs
             })
+        },
+        bindEventHub(){
+            eventHub.on('upload',(data)=>{
+                this.data.songs.push(data)
+            })
         }
+        
 
     }
     let controller = {
@@ -42,6 +47,7 @@
                 this.view.insertLi(data.songName)
             })
             this.bindEvents()
+            this.model.bindEventHub()
             this.model.find()
                 .then(() => {
                     this.model.data.songs.map((value) => {    
@@ -58,8 +64,6 @@
                         message.push(value)
                     }
                 })
-                console.log('emit')
-                console.log(message)
                 eventHub.emit('select',message[0])//传入歌曲的id信息
             })
         }
