@@ -1,6 +1,6 @@
 {
     let view = {
-        el: '.wrapper > main',
+        el: '.wrapper main #imformation',
         template: `
         <h1>歌曲信息</h1>
         <form class="form">
@@ -77,10 +77,9 @@
                     .then((newSong) => {
                         this.model.updata(newSong)
                         this.view.render()
+                        console.log(1)
                         eventHub.emit('create',this.model.data)
                     }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
-
-
             })
         }
 

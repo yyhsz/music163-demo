@@ -44,6 +44,7 @@
             this.model = model
             this.view.render(this.view.data)
             eventHub.on('create', (data) => {
+                console.log(2)
                 this.view.insertLi(data.songName)
             })
             this.bindEvents()
