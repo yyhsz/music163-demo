@@ -2,12 +2,12 @@ window.eventHub = {
     events: {
 
     },
-    emit(eventName, data) {
+    emit(eventName, data1,data2) {
         for (let key in this.events) {
             if (eventName === key) {
                 let fnList = this.events[eventName]
                 fnList.map((fn) => {
-                    fn(data)
+                    fn(data1,data2)
                 })
             }
         }

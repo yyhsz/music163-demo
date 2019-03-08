@@ -39,7 +39,8 @@
                             eventHub.emit('writeSongImformation', {
                                 url: sourceLink,
                                 songName: songName,
-                                singer: singer
+                                singer: singer,
+                                qiniuId:file.id
                             })
                         });
                     },

@@ -75,15 +75,13 @@
                 this.model.data.songs.push(data)
             })
             eventHub.on('update', (data) => {
-                let selectedSong 
-                this.model.data.songs.map((value) => {
-                    if (value.songName === $(this.view.el).find('.active').find('td').text().split(' - ')[0]) {
-                        selectedSong = value
-                    }
-                }) //selectedSong是我点击的标签对应的数据
-                console.log(this.model.data.songs)
+                // let selectedSong 
+                // this.model.data.songs.map((value) => {
+                //     if (value.songName === $(this.view.el).find('.active').find('td').text().split(' - ')[0]) {
+                //         selectedSong = value
+                //     }
+                // }) //selectedSong是我点击的标签对应的数据
                 this.view.updateLi(data.songName,data.singer)
-                
             })
         }
     }

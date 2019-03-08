@@ -39,7 +39,11 @@ aside .songList td{
 }
 .wrapper main #imformation{
     border:1px solid rgb(229, 98, 74);
-    height:56vh;
+    height:70vh;
+
+}
+.wrapper main #imformation span{
+    margin-left: 10px;
 
 }
 main h1{
@@ -68,7 +72,7 @@ main #box{
     justify-content: center;
     align-items: center;
     border:1px solid red;
-    height:44vh;
+    height: 30vh;
 }
 main #box #uploadArea {
     border:1px solid red;
@@ -83,5 +87,5 @@ main #box #uploadArea {
     background: rgb(253, 243, 243);
     cursor: pointer;
     flex-grow: 1;
-    height: 90%
+
 }

@@ -20,7 +20,7 @@
         </form>
         `,
         render(data = {}, btnContent = '上传') {
-            let placeholders = ['songName', 'url', 'singer']
+            let placeholders = ['songName', 'url', 'singer', 'qiniuId']
             let html = this.template.replace('__btn__', btnContent)
             placeholders.map((value) => {
                 html = html.replace(`__${value}__`, data[value] || '')
@@ -30,7 +30,7 @@
     }
     let model = {
         data: {
-            songName: '', singer: '', url: '', id: ''
+            songName: '', singer: '', url: '', LCId: ''
         },
         uploadToLeanCloud(data) {
             var Song = AV.Object.extend('Song');
@@ -40,16 +40,30 @@
             song.set('url', data.url);
             return song.save()
         },
-        update(newSong) { //
-            let { id, attributes } = newSong
-            Object.assign(this.data, {
-                id,
-                ...attributes
-            })
+        updateLeanCloud(data, LCId) {
+            var song = AV.Object.createWithoutData('Song', LCId);
+            for (let key in data) {
+                song.set(`${key}`, data[key])
+            }
+            song.save();
+        },
+        updateModelData(data) { //
+            if (data.attributes) {
+                let { LCId, attributes } = data
+                Object.assign(this.data, {
+                    LCId,
+                    ...attributes
+                })
+            } else {
+                this.data.songName = data.songName
+                this.data.singer = data.singer
+                this.data.url = data.url
+                this.data.LCId = data.id
+
+            }
+
         }
     }
-
-
     let controller = {
         init(view, model) {
             this.view = view;
@@ -60,17 +74,20 @@
                 this.view.render(data)
             })
             eventHub.on('read', (data) => {
-                this.view.render(data,'提交改动')
+                this.view.render(data, '提交改动')
+                this.model.updateModelData(data)
             })
             eventHub.on('create', (data) => {
                 this.model.uploadToLeanCloud(data)
                     .then((newSong) => {
-                        this.model.update(newSong)//更新this.model.data
+                        this.model.updateModelData(newSong)//更新this.model.data
                         this.view.render()  //清空表单中的歌曲信息
                     }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
             })
-            eventHub.on('update',(data)=>{
+            eventHub.on('update', (data,LCId) => {
                 this.view.render()
+                this.model.updateLeanCloud(data,LCId)
+
             })
         },
         bindEvents() {
@@ -81,10 +98,10 @@
                 needs.map((value) => {
                     data[value] = $(this.view.el).find(`[name=${value}]`).val()
                 })
-                if($(this.view.el).find('button').text() === '提交改动'){
-                    eventHub.emit('update',data)
-                }else{
-                    eventHub.emit('create',data)
+                if ($(this.view.el).find('button').text() === '提交改动') {
+                    eventHub.emit('update', data, this.model.data.LCId)
+                } else {
+                    eventHub.emit('create', data)
                 }
             })
         }
