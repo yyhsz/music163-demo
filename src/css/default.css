@@ -20,16 +20,7 @@ aside{
     border:1px solid rgb(229, 98, 74);
 }
 
-aside li{
-    padding: 6px 10px;
-    border-bottom: 1px dashed #ddd
-}
-aside li.active{
-    background: rgb(240, 221, 221);
-}
-.newSong{
-    cursor: pointer;
-}
+aside .songList{overflow: auto}
 #uploadArea {
     padding: 40px;
     border: 3px dashed rgb(252, 184, 184);
@@ -54,5 +45,7 @@ main h1{
 }
 .form{
     padding: 30px;
-
+}
+.form button{
+    cursor: pointer;
 }
