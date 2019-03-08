@@ -44,7 +44,6 @@
             this.model = model
             this.view.render(this.view.data)
             eventHub.on('create', (data) => {
-                console.log(2)
                 this.view.insertLi(data.songName)
             })
             this.bindEvents()
@@ -65,7 +64,8 @@
                         message.push(value)
                     }
                 })
-                eventHub.emit('select',message[0])//传入歌曲的id信息
+
+                eventHub.emit('select',message[0])//传入歌曲信息
             })
         }
     }

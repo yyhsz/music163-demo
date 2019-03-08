@@ -3,6 +3,30 @@
         el: '.wrapper main #imformation',
         template: `
         <h1>歌曲信息</h1>
+        `,
+        editTemplate: `
+        <div class="form">
+        <div class="form-group">
+        <label for="email">歌曲名:</label>
+        <div class="form-control">
+            <div>__songName__</div>
+        </div>
+        </div>
+        <div class="form-group">
+        <label for="pwd">歌手:</label>
+        <div class="form-control">
+                <div>__singer__</div>
+        </div>
+        </div>
+        <div class="form-group">
+        <label for="pwd">外链:</label>
+        <div class="form-control">
+            <div>__url__</div>
+        </div>
+        </div>
+        </div>
+        `,
+        uploadTemplate: `
         <form class="form">
             <div class="form-group">
                 <label for="email">歌曲名:</label>
@@ -19,14 +43,14 @@
             <button type="submit" class="btn btn-primary">上传</button>
         </form>
         `,
-        render(data = {}) {
+        render(data = {}, temp = this.uploadTemplate) {
             let placeholders = ['songName', 'url', 'singer']
-            let html = this.template
+            let html = this.template + temp
             placeholders.map((value) => {
                 html = html.replace(`__${value}__`, data[value] || '')
             })
             $(this.el).html(html)
-        }
+        },
     }
     let model = {
         data: {
@@ -39,7 +63,6 @@
             song.set('singer', data.singer);
             song.set('url', data.url);
             return song.save()
-
         },
         updata(newSong) {
             let { id, attributes } = newSong
@@ -60,9 +83,8 @@
             eventHub.on('upload', (data) => {
                 this.view.render(data)
             })
-            eventHub.on('select',(data)=>{
-                this.view.render()
-                this.view.render(data)
+            eventHub.on('select', (data) => {
+                this.view.render(data, this.view.editTemplate)
             })
         },
         bindEvents() {
@@ -77,13 +99,10 @@
                     .then((newSong) => {
                         this.model.updata(newSong)
                         this.view.render()
-                        console.log(1)
-                        eventHub.emit('create',this.model.data)
+                        eventHub.emit('create', this.model.data)
                     }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
             })
         }
-
     }
-
     controller.init(view, model)
 }

@@ -71,7 +71,5 @@
             });
         }
     }
-
-
     controller.init(view,model)
 }
