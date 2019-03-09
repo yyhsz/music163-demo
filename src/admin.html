@@ -8,10 +8,28 @@
     <title>管理页面</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="./css/loading.css">
+    <script src="//at.alicdn.com/t/font_1079143_2mnt2g0w3dh.js"></script>
+    <style type="text/css">
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>
+
     <div class="wrapper">
+        <div class="loading">
+        </div>
+        <span>网易云音乐</span>
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-music"></use>
+        </svg>
         <aside>
             <div class="container">
                 <table class="table table-hover">
@@ -29,7 +47,6 @@
         </aside>
         <main>
             <div id="imformation">
-
             </div>
             <div id="box">
                 <div id="uploadArea">
@@ -39,6 +56,7 @@
             </div>
         </main>
     </div>
+
 
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="../src/js/initAV.js"></script>

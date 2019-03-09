@@ -1,4 +1,4 @@
-{
+{///包含增删改查中的上传歌曲，改动歌曲信息的功能
     let view = {
         el: '.wrapper main #imformation',
         template: `
@@ -70,25 +70,7 @@
             this.model = model
             this.view.render(this.model.data)
             this.bindEvents()
-            eventHub.on('writeSongImformation', (data) => {
-                this.view.render(data)
-            })
-            eventHub.on('read', (data) => {
-                this.view.render(data, '提交改动')
-                this.model.updateModelData(data)
-            })
-            eventHub.on('create', (data) => {
-                this.model.uploadToLeanCloud(data)
-                    .then((newSong) => {
-                        this.model.updateModelData(newSong)//更新this.model.data
-                        this.view.render()  //清空表单中的歌曲信息
-                    }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
-            })
-            eventHub.on('update', (data,LCId) => {
-                this.view.render()
-                this.model.updateLeanCloud(data,LCId)
-
-            })
+            this.bindEventHub()
         },
         bindEvents() {
             $(this.view.el).on('submit', 'form', (x) => {
@@ -103,6 +85,27 @@
                 } else {
                     eventHub.emit('create', data)
                 }
+            })
+        },
+        bindEventHub() {
+            eventHub.on('writeSongImformation', (data) => {
+                this.view.render(data)
+            })
+            eventHub.on('read', (data) => {
+                this.view.render(data, '提交改动')
+                this.model.updateModelData(data)
+            })
+            eventHub.on('create', (data) => {
+                this.model.uploadToLeanCloud(data)
+                    .then((newSong) => {
+                        this.model.updateModelData(newSong)//更新this.model.data
+                        this.view.render()  //清空表单中的歌曲信息
+                    }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
+                   
+                })
+            eventHub.on('update', (data, LCId) => {
+                this.view.render()
+                this.model.updateLeanCloud(data, LCId)
             })
         }
     }

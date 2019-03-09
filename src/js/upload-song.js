@@ -49,10 +49,11 @@
 
 
 
-
                     },
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时,处理相关的事情
+                        //激活上传加载动画
+                        $('.loading').addClass('active')
 
                     },
                     'FileUploaded': function (up, file, info) {
@@ -71,10 +72,19 @@
                         // var singer = response.key.split('.')[0].split(` - `)[0]
                         // var songName = response.key.split('.')[0].split(` - `)[1]
 
-                        // 获取上传成功后的文件的Url
+                        //成功后，关闭上传动画
+                        $('.loading').removeClass('active')
+                        alert('上传成功')
+
+
                     },
                     'Error': function (up, err, errTip) {
                         //上传出错时,处理相关的事情
+                        //同样关闭上传动画，但是提示报错
+                        console.log($('.loading'))
+                        $('.loading').removeClass('active')
+                        alert('上传失败')
+
                     },
                     'UploadComplete': function () {
                         //队列文件处理完毕后,处理相关的事情

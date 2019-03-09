@@ -1,4 +1,4 @@
-{
+{///包含增删改查中的查看歌曲信息
     let view = {
         el: '.songList',
         template: `
