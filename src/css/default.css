@@ -6,8 +6,8 @@ ul{list-style: none;}
 body{
     position: relative;
     background-image: url(../img/wallhaven-745714.jpg);
-    background-size: 100%;
     background-repeat:no-repeat;
+    background-size: 100%;
 }
 
 .wrapper{
@@ -18,7 +18,7 @@ body{
     height: 85vh;
     width: 70vw;
     border-top: 50px solid rgb(253, 114, 109);
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
