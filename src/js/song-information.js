@@ -45,7 +45,7 @@
             for (let key in data) {
                 song.set(`${key}`, data[key])
             }
-            song.save();
+            return song.save();
         },
         updateModelData(data) { //
             if (data.attributes) {
@@ -101,11 +101,16 @@
                         this.model.updateModelData(newSong)//更新this.model.data
                         this.view.render()  //清空表单中的歌曲信息
                     }, (error) => { console.error('Failed to create new object, with error message: ' + error.message) })
-                   
-                })
+
+            })
             eventHub.on('update', (data, LCId) => {
                 this.view.render()
+                $('.loading').addClass('active')
                 this.model.updateLeanCloud(data, LCId)
+                    .then(() => {
+                        $('.loading').removeClass('active')
+                        alert('保存成功')
+                    },(error)=>{alert('保存失败')})
             })
         }
     }
