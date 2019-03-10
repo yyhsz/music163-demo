@@ -21,7 +21,8 @@
                 $(e.currentTarget).addClass('active').siblings().removeClass('active')
                 eventHub.emit('selectTab',$(e.currentTarget).attr('tabName'))
             })
-        }
+        },
+        
     }
     controller.init(view,model)
 }

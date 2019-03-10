@@ -1,13 +1,16 @@
 {
-    let view =  {
-        el:'.page-1',
-        init(){
+
+
+
+    let view = {
+        el: '.page-1',
+        init() {
             this.$el = $(this.el)
         },
-        show(){
+        show() {
             this.$el.addClass('active')
         },
-        hide(){
+        hide() {
             this.$el.removeClass('active')
         }
 
@@ -16,25 +19,38 @@
 
     }
     let controller = {
-        init(view,model){
+        init(view, model) {
             this.view = view
             this.model = model
             this.view.init()
             this.bindEvents()
             this.bindEventHub()
+            this.loadModule1()
+            this.loadModule2()
         },
-        bindEvents(){
+        bindEvents() {
 
         },
-        bindEventHub(){
-            eventHub.on('selectTab',(tabName)=>{
-                if(tabName === 'page-1'){
+        bindEventHub() {
+            eventHub.on('selectTab', (tabName) => {
+                if (tabName === 'page-1') {
                     this.view.show()
-                }else{
+                } else {
                     this.view.hide()
                 }
             })
+        },
+        loadModule1() {
+            let script1 = $('<script></script>')[0]
+            script1.src = '../src/js/home/page-1-1.js'
+            document.body.append(script1)
+        },
+        loadModule2() {
+            let script2 = $('<script></script>')[0]
+            script2.src = '../src/js/home/page-1-2.js'
+            document.body.append(script2)
         }
+
     }
-    controller.init(view,model)
+    controller.init(view, model)
 }
