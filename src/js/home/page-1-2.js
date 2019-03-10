@@ -7,10 +7,11 @@
         
         render(data){
             let {songs} = data  
-            //只获取前10首歌
+            //只获取最新10首歌
             latestSongs = songs.filter((value,key)=>{
-                return  (key<10)
+                return  (key>songs.length-11 && key<songs.length)
             })
+            console.log(latestSongs)
             latestSongs.map((value)=>{
                 this.$el.find('#songs').prepend($(`
                 <li>
@@ -21,7 +22,7 @@
                 </svg>
                 ${value.singer}
                 </p>
-                <a class="playButton" href="#">
+                <a class="playButton" href="./song.html?id=${value.id}">
                 <svg class="icon icon-play">
                 <use xlink:href="#icon-play"></use>
                 </svg>
