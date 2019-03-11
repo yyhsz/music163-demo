@@ -3,34 +3,27 @@
   let view = {
     el: '#app',
     template: `
-        <audio muted src = '__url__'></audio>     
+        <audio src = '__url__'></audio>   
+
+
+
+
       `,
-    render(song) {
-      $(this.el).html(this.template.replace('__url__', song.url))
+    render(data) {
+      // $(this.el).html(this.template.replace('__url__', song.url))
+      let {attributes} = data
+      $(this.el).find('.page').css('background-image',song.cover)
     },
-    play() {  
-      $(this.el).find('audio')[0].play()
-      // let promise = 
-      // console.log(promise)
-      // if (promise !== undefined) {
-      //   promise.then((x)=> {
-      //     // Autoplay started!
-      //     console.log(x)
-      //     $(this.el).find('audio')[0]
-      //   },(x)=>{
-      //     console.log(x)
-      //   }).catch(error => {
-      //     console.log(4)
-      //     // Autoplay was prevented.
-      //     // Show a "Play" button so that user can start playback.
-      //   });
-      // }
+    play() {
+        $(this.el).find('audio')[0].play()
+
     }
 
   }
   let model = {
     data: {    //id='',songName,singer,url
     },
+    status:'paused',
     get(id) {
       var query = new AV.Query('Song');
       return query.get(id).then(song => {
@@ -50,13 +43,16 @@
       this.bindEvents()
       this.model.get(this.getSongId())
         .then(() => {
+          console.log(this.model.data)
           this.view.render(this.model.data);
           this.view.play()
         })
 
     },
     bindEvents() {
+      $(this.view.el).on('click','.play',()=>{
 
+      })
     },
     getSongId() {
       let array = window.location.search.substring(1).split('&').filter(value => value)

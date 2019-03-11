@@ -81,7 +81,6 @@
                     'Error': function (up, err, errTip) {
                         //上传出错时,处理相关的事情
                         //同样关闭上传动画，但是提示报错
-                        console.log($('.loading'))
                         $('.loading').removeClass('active')
                         alert('上传失败')
 

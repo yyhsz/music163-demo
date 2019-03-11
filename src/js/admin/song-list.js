@@ -22,7 +22,7 @@
         }
     }
     let model = {
-        data: { songs: [] }, //{songs:[{songName:'xxx',singer:'xxx',id:'xxx'....},{},{}]}
+        data: [], //{songs:[{songName:'xxx',singer:'xxx',id:'xxx'....},{},{}]}
         find() {
             var query = new AV.Query('Song')
             return query.find().then((data) => {
@@ -35,10 +35,26 @@
                     })
                     return copy
                 })
-                this.data.songs = songs
+                this.data = songs
+            })
+        },
+        uploadModelData(data) {  //data是leancloud传回来的数据
+            let copy = {}
+            let { id, attributes:{songName,singer,url,cover} } = data
+            copy.id = id
+            copy.songName = songName
+            copy.singer = singer
+            copy.url = url
+            copy.cover = cover
+            this.data.push(copy)
+        },
+        updateModelData(data) {
+            this.data.map((value)=>{
+                if(value.id === data.id){
+                    Object.assign(value,data)
+                }
             })
         }
-
 
     }
     let controller = {
@@ -46,14 +62,11 @@
             this.view = view
             this.model = model
             this.view.render(this.view.data)
-            eventHub.on('create', (data) => {
-                this.view.insertLi(data.songName, data.singer)
-            })
             this.bindEvents()
             this.bindEventHub()
             this.model.find()
                 .then(() => {
-                    this.model.data.songs.map((value) => {
+                    this.model.data.map((value) => {
                         this.view.insertLi(value.songName, value.singer)
                     })
                 })
@@ -61,28 +74,19 @@
         bindEvents() {
             $(this.view.el).on('click', 'td', (x) => {
                 this.view.activeLi($(x.currentTarget).parent())
-                let message = []
-                this.model.data.songs.map((value) => {
-                    if (value.songName === $(x.currentTarget).text().split(' - ')[0]) {
-                        message.push(value)
-                    }
-                })
-                eventHub.emit('read', message[0])//传入歌曲信息
+                eventHub.emit('read',$(x.currentTarget).text().split(' - ')[0])//给表单传入被点击的歌曲的名字
             })
         },
         bindEventHub() {
             eventHub.on('create', (data) => {
-                this.model.data.songs.push(data)
+                this.model.uploadModelData(data)
+                this.view.insertLi(data.attributes.songName, data.attributes.singer)
             })
             eventHub.on('update', (data) => {
-                // let selectedSong 
-                // this.model.data.songs.map((value) => {
-                //     if (value.songName === $(this.view.el).find('.active').find('td').text().split(' - ')[0]) {
-                //         selectedSong = value
-                //     }
-                // }) //selectedSong是我点击的标签对应的数据
+                this.model.updateModelData(data)
                 this.view.updateLi(data.songName,data.singer)
             })
+
         }
     }
     controller.init(view, model)

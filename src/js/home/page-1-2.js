@@ -15,6 +15,7 @@
             latestSongs.map((value)=>{
                 this.$el.find('#songs').prepend($(`
                 <li>
+                <a href="./song.html?id=${value.id}">
                 <h3>${value.songName}</h3>
                 <p>
                 <svg class="icon icon-sq">
@@ -27,6 +28,8 @@
                 <use xlink:href="#icon-play"></use>
                 </svg>
                 </a>
+                </a>
+
                 </li>`)[0])
             })
             
