@@ -20,11 +20,17 @@
                 <label for="pwd">封面链接:</label>
                 <input type="text" name='cover' class="form-control" id="pwd"  value='__cover__'>
             </div>
+            <div class="form-group">
+                <label for="pwd">歌词:</label>
+                <textarea name='lyrics'>__lyrics__</textarea>
+            
+            </div>
+           
             <button type="submit" class="btn btn-primary">__btn__</button>
         </form>
         `,
         render(data = {}, btnContent = '上传') {
-            let placeholders = ['songName', 'url', 'singer', 'cover']
+            let placeholders = ['songName', 'url', 'singer', 'cover','lyrics']
             let html = this.template.replace('__btn__', btnContent)
             placeholders.map((value) => {
                 html = html.replace(`__${value}__`, data[value] || '')
@@ -42,6 +48,7 @@
             song.set('singer', data.singer);
             song.set('url', data.url);
             song.set('cover', data.cover)
+            song.set('lyrics', data.lyrics)
             song.set('ACL', { "*": { "read": true, "write": true } })
             return song.save()
         },
@@ -124,7 +131,7 @@
         bindEvents() {
             $(this.view.el).on('submit', 'form', (x) => {
                 x.preventDefault()
-                let needs = ['singer', 'songName', 'url', 'cover']
+                let needs = ['singer', 'songName', 'url', 'cover','lyrics']
                 let data = {}
                 needs.map((value) => {
                     data[value] = $(this.view.el).find(`[name=${value}]`).val()

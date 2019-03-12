@@ -40,12 +40,13 @@
         },
         uploadModelData(data) {  //data是leancloud传回来的数据
             let copy = {}
-            let { id, attributes:{songName,singer,url,cover} } = data
+            let { id, attributes:{songName,singer,url,cover,lyrics} } = data
             copy.id = id
             copy.songName = songName
             copy.singer = singer
             copy.url = url
             copy.cover = cover
+            copy.lyrics = lyrics
             this.data.push(copy)
         },
         updateModelData(data) {
