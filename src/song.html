@@ -13,44 +13,46 @@
 
 <body>
     <div class="page" id="app">
-            <audio controls></audio>
+        <audio controls></audio>
         <div class="pageBackground">
-            </div>
-            <div class="disc-container">
-                <img class="pointer" src="//s3.music.126.net/m/s/img/needle-ip6.png?be4ebbeb6befadfcae75ce174e7db862 "
+        </div>
+        <div class="disc-container">
+            <img class="pointer" src="//s3.music.126.net/m/s/img/needle-ip6.png?be4ebbeb6befadfcae75ce174e7db862 "
+                alt="">
+            <div class="disc">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-play">
+                        <use xlink:href="#icon-bofang"></use>
+                    </svg>
+                </div>
+                <img class="ring" src="//s3.music.126.net/m/s/img/disc-ip6.png?69796123ad7cfe95781ea38aac8f2d48" alt="">
+                <img class="light" src="//s3.music.126.net/m/s/img/disc_light-ip6.png?996fc8a2bc62e1ab3f51f135fc459577"
                     alt="">
-                <div class="disc">
-                    <div class="icon-wrapper">
-                        <svg class="icon icon-play">
-                            <use xlink:href="#icon-bofang"></use>
-                        </svg>
-                    </div>
-                    <img class="ring" src="//s3.music.126.net/m/s/img/disc-ip6.png?69796123ad7cfe95781ea38aac8f2d48"
-                        alt="">
-                    <img class="light"
-                        src="//s3.music.126.net/m/s/img/disc_light-ip6.png?996fc8a2bc62e1ab3f51f135fc459577" alt="">
-                    <img alt="" class="cover">
-                </div>
+                <img alt="" class="cover">
             </div>
-            <div class="song-description">
-                <h1>__songName__ - __singer__</h1>
-                <div class="lyric">
-                    <div class="lines">
+        </div>
+        <div class="song-description">
+            <h1>__songName__ - __singer__</h1>
+            <div class="lyric">
+                <div class="lines">
 
-                    </div>
                 </div>
             </div>
-            <div class="links">
-                <a href="#">打开</a>
-                <a class="main" href="#">下载</a>
-            </div>
-        
+        </div>
+        <div class="links">
+            <a href="#">打开</a>
+            <a class="main" href="#">下载</a>
+        </div>
+
     </div>
 
 
 
 
-
+    <script>window.onerror = function (message,file,row) {
+        alert(message)
+        alert(file,row)
+        }</script>
     <script src="//at.alicdn.com/t/font_1079143_x0jggs1s2v.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="../src/js/admin/initAV.js"></script>
