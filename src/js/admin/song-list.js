@@ -27,12 +27,14 @@
             var query = new AV.Query('Song')
             return query.find().then((data) => {
                 songs = data.map((value) => {
-                    let { id, attributes } = value
                     let copy = {}
-                    Object.assign(copy, {
-                        id,
-                        ...attributes
-                    })
+                    let { id, attributes: { songName, singer, url, cover, lyrics } } = value
+                    copy.id = id
+                    copy.songName = songName
+                    copy.singer = singer
+                    copy.url = url
+                    copy.cover = cover
+                    copy.lyrics = lyrics
                     return copy
                 })
                 this.data = songs
@@ -40,19 +42,19 @@
         },
         uploadModelData(data) {  //data是leancloud传回来的数据
             let copy = {}
-            let { id, attributes:{songName,singer,url,cover,lyrics} } = data
+            let { id, attributes: { songName, singer, url, cover, lyrics } } = data
             copy.id = id
             copy.songName = songName
             copy.singer = singer
             copy.url = url
             copy.cover = cover
-            copy.lyrics = lyrics
+            copy.lyrics = lyric
             this.data.push(copy)
         },
         updateModelData(data) {
-            this.data.map((value)=>{
-                if(value.id === data.id){
-                    Object.assign(value,data)
+            this.data.map((value) => {
+                if (value.id === data.id) {
+                    Object.assign(value, data)
                 }
             })
         }
@@ -75,7 +77,7 @@
         bindEvents() {
             $(this.view.el).on('click', 'td', (x) => {
                 this.view.activeLi($(x.currentTarget).parent())
-                eventHub.emit('read',$(x.currentTarget).text().split(' - ')[0])//给表单传入被点击的歌曲的名字
+                eventHub.emit('read', $(x.currentTarget).text().split(' - ')[0])//给表单传入被点击的歌曲的名字
             })
         },
         bindEventHub() {
@@ -85,7 +87,7 @@
             })
             eventHub.on('update', (data) => {
                 this.model.updateModelData(data)
-                this.view.updateLi(data.songName,data.singer)
+                this.view.updateLi(data.songName, data.singer)
             })
 
         }

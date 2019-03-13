@@ -67,7 +67,12 @@
     get(id) {
       var query = new AV.Query('Song');
       return query.get(id).then(song => {
-        Object.assign(this.data, { id, ...song.attributes })
+        Object.assign(this.data, { id })
+        this.data.songName = song.attributes.songName
+        this.data.singer = song.attributes.singer
+        this.data.url = song.attributes.url
+        this.data.cover = song.attributes.cover
+        this.data.lyrics = song.attributes.lyrics
         return this.data
       }, function (error) {
         console.log('获取歌曲失败')

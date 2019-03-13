@@ -30,7 +30,7 @@
         </form>
         `,
         render(data = {}, btnContent = '上传') {
-            let placeholders = ['songName', 'url', 'singer', 'cover','lyrics']
+            let placeholders = ['songName', 'url', 'singer', 'cover', 'lyrics']
             let html = this.template.replace('__btn__', btnContent)
             placeholders.map((value) => {
                 html = html.replace(`__${value}__`, data[value] || '')
@@ -57,29 +57,33 @@
             return query.find()
         },
         updateLeanCloud(data) {
-            var song = AV.Object.createWithoutData('Song',data.id);
+            var song = AV.Object.createWithoutData('Song', data.id);
             for (let key in data) {
                 song.set(`${key}`, data[key])
             }
             return song.save();
         },
-        uploadModelData(data) {  
+        uploadModelData(data) {
             if (Array.isArray(data)) { //每次刷新页面都从leancloud获得所有的歌曲数据
                 this.data = data
             } else {    //每次上传新歌曲就要将数据传入model.data
                 let copy = {}
-                // let { id, attributes: { songName, singer, url, cover } } = data
-                // copy.id = id
-                // copy.songName = songName
-                // copy.singer = singer
-                // copy.url = url
-                // copy.cover = cover
-                let { id, attributes } = data
+                let { id, attributes: { songName, singer, url, cover, lyrics } } = data
+                copy.id = id
+                copy.songName = songName
+                copy.singer = singer
+                copy.url = url
+                copy.cover = cover
+                copy.lyrics = lyrics
 
-                Object.assign(copy, {
-                    id,
-                    ...attributes
-                })
+
+                // let { id, attributes } = data
+
+                // Object.assign(copy, {
+                //     id,
+                //     ...attributes
+                // })
+
                 this.data.push(copy)
             }
 
@@ -89,7 +93,7 @@
         updateModelData(data) {
             this.data.map((value) => {
                 if (value.id === data.id) {
-                    Object.assign(value,data)
+                    Object.assign(value, data)
                 }
             })
         },
@@ -101,7 +105,7 @@
                 }
             })
         },
-        clearCurrentSongId(){
+        clearCurrentSongId() {
             this.currentSongId = ''
         }
     }
@@ -116,12 +120,15 @@
             this.model.find()
                 .then((data) => {
                     songs = data.map((value) => {
-                        let { id, attributes } = value
+                       
                         let copy = {}
-                        Object.assign(copy, {
-                            id,
-                            ...attributes
-                        })
+                        let { id, attributes: { songName, singer, url, cover, lyrics } } = value
+                        copy.id = id
+                        copy.songName = songName
+                        copy.singer = singer
+                        copy.url = url
+                        copy.cover = cover
+                        copy.lyrics = lyrics
                         return copy
                     })
                     this.model.uploadModelData(songs)//每次刷新页面都重新装载model.data
@@ -131,7 +138,7 @@
         bindEvents() {
             $(this.view.el).on('submit', 'form', (x) => {
                 x.preventDefault()
-                let needs = ['singer', 'songName', 'url', 'cover','lyrics']
+                let needs = ['singer', 'songName', 'url', 'cover', 'lyrics']
                 let data = {}
                 needs.map((value) => {
                     data[value] = $(this.view.el).find(`[name=${value}]`).val()
