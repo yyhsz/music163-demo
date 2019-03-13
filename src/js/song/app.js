@@ -112,7 +112,7 @@
         this.model.status = 'paused'
         $(this.view.el).find('.icon-wrapper').addClass('active')
         $(this.view.el).find('.icon-play').addClass('active')
-        $(this.view.el).find('.disc-container').addClass('paused')
+        $(this.view.el).find('.disc-container').removeClass('active')
       })
       $(this.view.el).find('audio').on('timeupdate', (x) => {
         this.view.showLyrics(x.currentTarget.currentTime)
