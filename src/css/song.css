@@ -26,11 +26,11 @@
 .disc-container .light{width: 72vw; position: absolute; }
 .disc-container .cover{width: 44.5vw; position: absolute; border-radius: 50%;  
   animation: circle 20s infinite linear; 
-  animation-play-state: running;
-}
-.disc-container.paused .light,
-.disc-container.paused .cover{
   animation-play-state: paused;
+}
+.disc-container.active .light,
+.disc-container.active .cover{
+  animation-play-state: running;
 }
 
 .disc-container .icon-wrapper.active{

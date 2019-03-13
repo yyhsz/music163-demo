@@ -27,7 +27,6 @@
     },
     n: 0,
     showLyrics(time) {
-
       let allp = $(this.el).find('.lyric>.lines>p')
       if (time > allp.eq(allp.length - 1).attr('data-time')) {
         $(this.el).find('.lyric>.lines').css('transform', `translateY(${-26 * (allp.length-1)}px)`)
@@ -63,7 +62,7 @@
   let model = {
     data: {    //id='',songName,singer,url,cover
     },
-    status: 'playing',
+    status: 'paused',
     get(id) {
       var query = new AV.Query('Song');
       return query.get(id).then(song => {
@@ -89,25 +88,24 @@
       this.model.get(this.getSongId())
         .then(() => {
           this.view.render(this.model.data);
-          this.view.play()
         })
     },
     bindEvents() {
       $(this.view.el).find('.disc').on('click', (x) => {
         switch (this.model.status) {
-          case 'playing'://暂停
+          case 'playing'://触发暂停
             this.model.status = 'paused'
             this.view.pause()
             $(this.view.el).find('.icon-wrapper').addClass('active')
             $(this.view.el).find('.icon-play').addClass('active')
-            $(this.view.el).find('.disc-container').addClass('paused')
+            $(this.view.el).find('.disc-container').removeClass('active')
             break
-          case 'paused':
+          case 'paused': //触发开始
             this.model.status = 'playing'
             this.view.play()
             $(this.view.el).find('.icon-wrapper').removeClass('active')
             $(this.view.el).find('.icon-play').removeClass('active')
-            $(this.view.el).find('.disc-container').removeClass('paused')
+            $(this.view.el).find('.disc-container').addClass('active')
         }
       })
       $(this.view.el).find('audio').on('ended', () => {

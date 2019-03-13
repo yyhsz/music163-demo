@@ -70,10 +70,12 @@ body{
     transform-origin: 0 0;
   }
   
-  /* tabs-nav */
+
   .tabs-nav{
     display: flex;
     border-bottom: 1px solid #CCCCCC;
+    justify-content: center;
+    align-items: center;
   }
   .tabs-nav>li{
     width: 33.333333%;
