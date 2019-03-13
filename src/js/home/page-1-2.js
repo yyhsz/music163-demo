@@ -1,4 +1,5 @@
 {
+    alert('模块1.2')
     let view = {
         el: 'section.songs',
         init(){

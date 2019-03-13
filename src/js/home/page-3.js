@@ -1,4 +1,6 @@
 {
+    alert('模块3')
+    
     let view =  {
         el:'.page-3',
         init(){
