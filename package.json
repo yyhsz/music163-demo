@@ -16,6 +16,7 @@
     "plupload": "^2.3.6",
     "qiniu": "^7.2.1",
     "qiniu-js": "^1.0.22",
-    "tether": "^1.4.5"
+    "tether": "^1.4.5",
+    "vconsole": "^3.3.0"
   }
 }
