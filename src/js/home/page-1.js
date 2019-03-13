@@ -43,12 +43,12 @@
         },
         loadModule1() {
             let script1 = $('<script></script>')[0]
-            script1.src = '../src/js/home/page-1-1.js'
+            script1.src = './js/home/page-1-1.js'
             document.body.append(script1)
         },
         loadModule2() {
             let script2 = $('<script></script>')[0]
-            script2.src = '../src/js/home/page-1-2.js'
+            script2.src = './js/home/page-1-2.js'
             document.body.append(script2)
         }
 
