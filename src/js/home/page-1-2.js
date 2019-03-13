@@ -42,12 +42,7 @@
             var query = new AV.Query('Song')
             return query.find().then((data) => {
                 songs = data.map((value) => {
-                    let { id, attributes } = value
-                    let copy = {}
-                    Object.assign(copy, {
-                        id,
-                        ...attributes
-                    })
+                    let copy = Object.assign({id:value.id}, value.attributes)
                     return copy
                 })
                 this.data.songs = songs
