@@ -1,7 +1,6 @@
 {
 
 
-    alert('模块1')
 
     let view = {
         el: '.page-1',
