@@ -3,7 +3,6 @@
   let view = {
     el: '#app',
     template: `
-        
       `,
     render(data) {
       $(this.el).find('.pageBackground').css('background-image', `url(${data.cover})`)

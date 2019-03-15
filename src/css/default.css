@@ -31,8 +31,9 @@ aside{
     justify-content: space-between;
     border-right:2px solid rgb(253, 114, 109);
 }
-
-aside .songList{overflow: auto}
+aside .container{
+    max-height:580px;overflow: auto
+}
 aside .songList .active{
     background: rgb(236, 236, 236);
 }

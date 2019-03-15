@@ -146,7 +146,6 @@ body{
   section.playlists > ol.songs > li img{
     width: 100%;
   }
-  section.songs{}
   section.songs > .list {
     margin-top: 18px;
   }
